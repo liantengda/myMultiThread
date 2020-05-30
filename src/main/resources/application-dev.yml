@@ -1,0 +1,14 @@
+server:
+  port: 8080
+
+spring:
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+#showSql
+logging:
+  level:
+    com:
+      example:
+        mapper: debug
