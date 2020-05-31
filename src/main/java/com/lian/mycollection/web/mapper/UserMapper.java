@@ -1,8 +1,8 @@
-package com.lian.mycollection.mapper;
+package com.lian.mycollection.web.mapper;
 
 import com.lian.mycollection.common.globalException.util.CopyNonNullUtils;
 import com.lian.mycollection.common.constant.MyBusinessExceptionEnum;
-import com.lian.mycollection.model.User;
+import com.lian.mycollection.web.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;

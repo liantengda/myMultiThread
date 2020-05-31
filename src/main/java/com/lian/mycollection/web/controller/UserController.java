@@ -1,8 +1,8 @@
-package com.lian.mycollection.controller;
+package com.lian.mycollection.web.controller;
 
 import com.lian.mycollection.common.globalException.pojo.response.R;
-import com.lian.mycollection.model.User;
-import com.lian.mycollection.service.UserService;
+import com.lian.mycollection.web.model.User;
+import com.lian.mycollection.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

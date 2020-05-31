@@ -18,7 +18,6 @@ public class SynchronizedBucket {
     private static final Integer capacity = 8;
 
 
-
     public Integer capacity(){
         return capacity;
     }

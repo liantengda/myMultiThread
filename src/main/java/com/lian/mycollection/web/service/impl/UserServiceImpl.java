@@ -1,10 +1,10 @@
-package com.lian.mycollection.service.impl;
+package com.lian.mycollection.web.service.impl;
 
 
 import com.lian.mycollection.common.constant.MyBusinessExceptionEnum;
-import com.lian.mycollection.mapper.UserMapper;
-import com.lian.mycollection.model.User;
-import com.lian.mycollection.service.UserService;
+import com.lian.mycollection.web.mapper.UserMapper;
+import com.lian.mycollection.web.model.User;
+import com.lian.mycollection.web.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

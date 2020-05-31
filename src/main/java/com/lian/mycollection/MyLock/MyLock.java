@@ -18,7 +18,6 @@ public class MyLock {
     //当前线程拥有者
     Thread ownerThread = null;
 
-
     public void lock(){
         if(!tryLock()){
             waiters.add(Thread.currentThread());

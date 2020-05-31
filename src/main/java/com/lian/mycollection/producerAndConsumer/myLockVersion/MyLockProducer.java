@@ -13,23 +13,15 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MyLockProducer implements Runnable {
     private String producerName;
-    /**
-     * 面包桶
-     */
+
     private MyLockBucket bucket = null;
-
-
 
     public MyLockProducer(String producerName, MyLockBucket bucket){
         this.producerName = producerName;
         this.bucket = bucket;
     }
 
-    /**
-     * 生产面包
-     */
     private void produce(){
-
         try{
             MyLockBucket.myLock.lock();
             if(bucket.size()<bucket.capacity()){
@@ -45,10 +37,7 @@ public class MyLockProducer implements Runnable {
         }finally {
             MyLockBucket.myLock.unlock();
         }
-
-
     }
-
     @Override
     public void run() {
         MyThreadLocal.put("ThreadDetail",Thread.currentThread().getName()+":"+producerName);

@@ -1,4 +1,4 @@
-package com.lian.mycollection.model;
+package com.lian.mycollection.web.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

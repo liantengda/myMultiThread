@@ -13,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MyLockConsumer implements Runnable {
     private static Integer consumerNum = 0;
-
     private String name;
-
     private MyLockBucket myLockBucket;
 
     public MyLockConsumer(MyLockBucket myLockBucket, String name){
@@ -23,10 +21,7 @@ public class MyLockConsumer implements Runnable {
         this.myLockBucket = myLockBucket;
         consumerNum++;
     }
-
-
     private Bread takeOut(){
-
         Bread bread = null;
         try{
             MyLockBucket.myLock.lock();
@@ -44,7 +39,6 @@ public class MyLockConsumer implements Runnable {
         }
         return bread;
     }
-
     @Override
     public void run() {
         MyThreadLocal.put("ThreadDetail",Thread.currentThread().getName()+":"+name);

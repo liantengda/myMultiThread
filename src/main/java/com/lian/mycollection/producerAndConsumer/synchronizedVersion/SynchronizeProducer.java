@@ -14,9 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SynchronizeProducer implements Runnable {
 
     private String producerName;
-    /**
-     * 面包桶
-     */
+
     private SynchronizedBucket synchronizedBucket = null;
 
     public SynchronizeProducer(String producerName, SynchronizedBucket synchronizedBucket){
@@ -24,31 +22,15 @@ public class SynchronizeProducer implements Runnable {
         this.synchronizedBucket = synchronizedBucket;
     }
 
-    /**
-     * 生产面包
-     */
     private void produce(){
-
         synchronized (synchronizedBucket){
-
-            if(synchronizedBucket.size()>= synchronizedBucket.capacity()){
-                try {
-                    synchronizedBucket.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            SynchronizedBucket.thingsNum++;
-            System.out.println(producerName+"生产面包"+SynchronizedBucket.thingsNum);
-            Bread bread = new Bread("面包"+SynchronizedBucket.thingsNum);
             try{
-                MyThreadLocal.put("ThreadDetail",Thread.currentThread().getName()+":"+producerName);
+                if(synchronizedBucket.size()>= synchronizedBucket.capacity()){
+                        synchronizedBucket.wait();
+                }
+                Thread.sleep(1);
+                System.out.println(producerName+"生产面包"+ ++SynchronizedBucket.thingsNum);
+                Bread bread = new Bread("面包"+SynchronizedBucket.thingsNum);
                 synchronizedBucket.putInto(bread);
             }catch (Exception e){
                 log.info(MyThreadLocal.getByKey("ThreadDetail",String.class)+"发生异常");
@@ -58,9 +40,9 @@ public class SynchronizeProducer implements Runnable {
             synchronizedBucket.notifyAll();
         }
     }
-
     @Override
     public void run() {
+        MyThreadLocal.put("ThreadDetail",Thread.currentThread().getName()+":"+producerName);
         while (true){
            produce();
         }

@@ -1,6 +1,6 @@
-package com.lian.mycollection.service;
+package com.lian.mycollection.web.service;
 
-import com.lian.mycollection.model.User;
+import com.lian.mycollection.web.model.User;
 
 import java.util.List;
 

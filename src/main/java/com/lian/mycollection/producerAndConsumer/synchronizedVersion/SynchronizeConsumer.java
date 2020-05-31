@@ -13,9 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class SynchronizeConsumer implements Runnable {
 
     private static Integer consumerNum = 0;
-
     private String name;
-
     private SynchronizedBucket synchronizedBucket;
 
     public SynchronizeConsumer(SynchronizedBucket synchronizedBucket, String name){
@@ -23,28 +21,15 @@ public class SynchronizeConsumer implements Runnable {
         this.synchronizedBucket = synchronizedBucket;
         consumerNum++;
     }
+    private synchronized Bread takeOut(){
 
-
-    private Bread takeOut(){
-
-        synchronized (synchronizedBucket){
-
-            if(synchronizedBucket.size()<consumerNum){
-                try {
-                    synchronizedBucket.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            try {
-                Thread.sleep(1);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+//        synchronized (synchronizedBucket){
             Bread bread = null;
             try{
-                MyThreadLocal.put("ThreadDetail",Thread.currentThread().getName()+":"+name);
+                if(synchronizedBucket.size()<consumerNum){
+                    synchronizedBucket.wait();
+                }
+                Thread.sleep(1);
                 bread = synchronizedBucket.takeOut();
                 System.out.println(name+"消费"+bread.getName());
                 System.out.println(synchronizedBucket.getAllThing());
@@ -52,13 +37,14 @@ public class SynchronizeConsumer implements Runnable {
                 log.info(MyThreadLocal.getByKey("ThreadDetail",String.class)+"发生异常");
                 log.info("异常原因---->"+e.toString());
             }
-            synchronizedBucket.notifyAll();
+//            synchronizedBucket.notifyAll();
+        this.notifyAll();
             return bread;
-        }
+//        }
     }
-
     @Override
     public void run() {
+        MyThreadLocal.put("ThreadDetail",Thread.currentThread().getName()+":"+name);
         while (true){
            takeOut();
         }
